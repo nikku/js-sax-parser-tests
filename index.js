@@ -9,76 +9,105 @@ const xml = fs.readFileSync('complex.bpmn', 'utf-8');
 
 var button0 = document.createElement('button');
 button0.textContent = 'PARSE EASY';
-button0.onclick = parseEasy;
+button0.onclick = test('easy', parseEasy);
 document.querySelector('.main').appendChild(button0);
 
 var button1 = document.createElement('button');
 button1.textContent = 'PARSE SAX';
-button1.onclick = parseSax;
+button1.onclick = test('sax', parseSax);
 document.querySelector('.main').appendChild(button1);
 
 
+function now() {
+  return new Date().getTime();
+}
 
-function parseEasy() {
+function test(name, run) {
 
-var parser = new EasyParser();
+  function repeat(times) {
+    for (var i = 0; i < times; i++) {
+      run(name);
+    }
+  }
 
-parser.on('error', function() {
-  console.log('error', arguments);
-});
+  return function() {
+    console.log(name, 'warm up...');
 
-parser.ns('xxx', {
-  'http://xxx': 'xxx',
-  // 'http://www.omg.org/spec/BPMN/20100524/MODEL': 'bpmn',
-  'http://www.omg.org/spec/DD/20100524/DC': 'blub'
-});
+    repeat(10);
 
-var nodeCount = 0;
+    console.log(name, 'test run');
 
-parser.on('startNode', function(name, attrs, uq, tagend) {
+    var time = now();
+    repeat(20);
+    var result = now() - time;
+    var avg = result / 15;
 
-  nodeCount++;
-
-});
-
-parser.on('endNode', function(name) {
-  // console.log(name + '/>');
-});
-
-
-console.time('easysax');
-parser.parse(xml);
-console.timeEnd('easysax');
-console.log('parsed nodes', nodeCount);
+    console.log(name, 'time=' + result + 'ms, avg=' + avg + 'ms');
+  };
 }
 
 
-function parseSax() {
+function parseEasy(name) {
 
-var parser = new SaxParser(true);
+  var parser = new EasyParser();
 
-parser.onerror = function(e) {
-  console.log(error);
-  // an error happened.
-};
-parser.ontext = function(t) {
-  // got some text.  t is the string of text.
-};
+  var nodeCount = 0;
 
-var nodeCount = 0;
-parser.onopentag = function(node) {
-  nodeCount++;
-  // opened a tag.  node has "name" and "attributes"
-};
-parser.onattribute = function(attr) {
-  // an attribute.  attr has "name" and "value"
-};
-parser.onend = function() {
-  // parser stream is done, and ready to have more stuff written to it.
-};
+  parser.on('error', function() {
+    console.log('error', arguments);
+  });
 
-console.time('sax-js');
-parser.write(xml).close();
-console.timeEnd('sax-js');
-console.log('parsed nodes', nodeCount);
+  parser.ns('xxx', {
+    'http://xxx': 'xxx',
+    // 'http://www.omg.org/spec/BPMN/20100524/MODEL': 'bpmn',
+    'http://www.omg.org/spec/DD/20100524/DC': 'blub'
+  });
+
+
+  parser.on('startNode', function(name, attrs, uq, tagend) {
+
+    nodeCount++;
+
+  });
+
+  parser.on('endNode', function(name) {
+    // console.log(name + '/>');
+  });
+
+
+  console.time(name);
+  parser.parse(xml);
+  console.timeEnd(name);
+  console.log('parsed ' + nodeCount + 'nodes');
+}
+
+
+function parseSax(name) {
+
+  var nodeCount = 0;
+  var parser = new SaxParser(true);
+
+  parser.onerror = function(e) {
+    console.log(error);
+    // an error happened.
+  };
+  parser.ontext = function(t) {
+    // got some text.  t is the string of text.
+  };
+
+  parser.onopentag = function(node) {
+    nodeCount++;
+    // opened a tag.  node has "name" and "attributes"
+  };
+  parser.onattribute = function(attr) {
+    // an attribute.  attr has "name" and "value"
+  };
+  parser.onend = function() {
+    // parser stream is done, and ready to have more stuff written to it.
+  };
+
+  console.time(name);
+  parser.write(xml).close();
+  console.timeEnd(name);
+  console.log('parsed ' + nodeCount + 'nodes');
 }

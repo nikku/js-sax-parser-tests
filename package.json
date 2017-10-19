@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Comparing javascript SAX parsers",
   "main": "index.js",
-  "dependencies": {
+  "devDependencies": {
     "brfs": "^1.4.3",
     "browserify": "^14.4.0",
     "easysax": "github:nikku/easysax#master",
