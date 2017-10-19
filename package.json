@@ -1,0 +1,19 @@
+{
+  "name": "js-sax-parser-tests",
+  "version": "0.0.0",
+  "description": "Comparing javascript SAX parsers",
+  "main": "index.js",
+  "dependencies": {
+    "brfs": "^1.4.3",
+    "browserify": "^14.4.0",
+    "easysax": "^0.2.0",
+    "sax": "^0.6.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "bundle": "browserify -e index.js -o index.dist.js --bare -t brfs"
+  },
+  "author": "Nico Rehwaldt<git_nikku@nixis.de>",
+  "license": "MIT"
+}
