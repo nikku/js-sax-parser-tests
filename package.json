@@ -6,7 +6,7 @@
   "dependencies": {
     "brfs": "^1.4.3",
     "browserify": "^14.4.0",
-    "easysax": "^0.2.0",
+    "easysax": "github:nikku/easysax#master",
     "sax": "^0.6.1"
   },
   "devDependencies": {},
