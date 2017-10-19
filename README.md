@@ -1,4 +1,10 @@
-# Benchmarking JS SAX-style parsers
+# Benchmarking JS XML parsers
+
+This small test compares the following SAX-style XML parsers avaliable:
+
+* [sax-js](https://github.com/isaacs/sax-js)
+* [easysax](https://github.com/vflash/easysax)
+
 
 ### Size
 
