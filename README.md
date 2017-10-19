@@ -5,6 +5,7 @@ This small test compares the following SAX-style XML parsers avaliable:
 * [sax-js](https://github.com/isaacs/sax-js)
 * [easysax](https://github.com/vflash/easysax)
 
+## Results
 
 ### Size
 
@@ -26,3 +27,14 @@ Parsing [`./complex.bpmn`](./complex.bpmn).
 | easysax | 3.2ms |
 
 Cf. [tests](./index.js).
+
+
+## How to Run
+
+```
+npm install
+
+npm run bundle
+
+# open index.html in a web browser
+```
