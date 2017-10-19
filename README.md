@@ -38,3 +38,5 @@ npm run bundle
 
 # open index.html in a web browser
 ```
+
+ :rocket:
