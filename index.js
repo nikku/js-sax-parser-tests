@@ -68,6 +68,7 @@ function parseEasy(name) {
 
     nodeCount++;
 
+    attrs();
   });
 
   parser.on('endNode', function(name) {
