@@ -3,17 +3,24 @@
   "version": "0.0.0",
   "description": "Comparing javascript SAX parsers",
   "main": "index.js",
-  "devDependencies": {
-    "brfs": "^1.4.3",
-    "browserify": "^14.4.0",
-    "easysax": "github:nikku/easysax#master",
-    "sax": "^0.6.1"
-  },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "bundle": "browserify -e index.js -o index.dist.js --bare -t brfs"
+    "bundle": "browserify -e index.js -o index.dist.js --bare -t brfs",
+    "perf": "npm run bundle && opn index.html",
+    "minify": "mkdir -p dist && uglifyjs -cm -o dist/sax.min.js node_modules/sax/lib/sax.js && uglifyjs -cm -o dist/saxen.min.js node_modules/saxen/parser.js && uglifyjs -cm -o dist/easysax.min.js node_modules/easysax/easysax.js && gzip -kf dist/*.js && du -b dist/*",
+    "all": "npm run minify && npm run perf"
   },
   "author": "Nico Rehwaldt<git_nikku@nixis.de>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "easysax": "github:vflash/easysax#97f5aee5415877dc28f02687ee0b94cd42a49013",
+    "sax": "^1.2.4",
+    "saxen": "^5.2.0"
+  },
+  "devDependencies": {
+    "brfs": "^1.4.3",
+    "browserify": "^14.5.0",
+    "opn-cli": "^3.1.0",
+    "uglify-js": "^3.1.8"
+  }
 }
