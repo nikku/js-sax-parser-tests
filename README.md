@@ -10,9 +10,11 @@ This small test compares the following SAX-style XML parsers avaliable:
 
 The following aspects are tested
 
+* strict mode (parsing XML only)
 * events: `openTag`, `closeTag`, `text`
 * attribute processing on
 * entity decoding on
+* namespace parsing on
 
 
 ## Results
@@ -33,7 +35,7 @@ Parsing [`./complex.bpmn`](./complex.bpmn).
 
 | parser | average time |
 | :--- | ---:|
-| sax-js | 25.3ms |
+| sax-js | 30.3ms |
 | easysax | 5.2ms |
 | saxen | 5.1ms |
 

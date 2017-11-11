@@ -146,7 +146,7 @@ function parseSaxen(name) {
 function parseSax(name) {
 
   var nodeCount = 0;
-  var parser = new SaxParser(true);
+  var parser = new SaxParser(true, { xmlns: true });
 
   parser.onopentag = function(node) {
     nodeCount++;
